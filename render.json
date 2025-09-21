@@ -1,0 +1,10 @@
+{
+  "name": "pipaflores",
+  "type": "static",
+  "buildCommand": "npm install && npm run build",
+  "publishPath": "dist",
+  "rootDir": ".",
+  "env": {
+    "NODE_VERSION": "18.x"
+  }
+}
