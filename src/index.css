@@ -101,6 +101,18 @@ button {
   box-shadow: 0 8px 25px rgba(255, 193, 7, 0.3);
 }
 
+/* Links globales */
+a {
+  color: var(--rosa-intenso);
+  text-decoration: none;
+  font-weight: 600;
+  transition: var(--transicion);
+}
+
+a:hover {
+  filter: brightness(1.2);
+}
+
 .btn-outline {
   background: transparent;
   border: 2px solid var(--rosa-intenso);
@@ -110,6 +122,8 @@ button {
 .btn-outline:hover {
   background: var(--rosa-intenso);
   color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(233, 30, 99, 0.3);
 }
 
 /* Grid responsive */

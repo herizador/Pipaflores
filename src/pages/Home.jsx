@@ -2,9 +2,25 @@ import { Link } from 'react-router-dom'
 import { ArrowRight, Star } from 'lucide-react'
 import { useCart } from '../context/CartContext'
 import ProductImage from '../components/ProductImage'
+import { useEffect } from 'react'
 
 const Home = () => {
   const { addToCart } = useCart()
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed')
+        }
+      })
+    }, { threshold: 0.1 })
+
+    const elements = document.querySelectorAll('.scroll-reveal')
+    elements.forEach(el => observer.observe(el))
+
+    return () => elements.forEach(el => observer.unobserve(el))
+  }, [])
 
   // Productos destacados iniciales
   const featuredProducts = [
@@ -72,7 +88,7 @@ const Home = () => {
               marginBottom: '2rem',
               lineHeight: '1.6'
             }}>
-              Cada flor, cada detalle, está hecho con cuidado y cariño, 
+              Cada flor, cada detalle, está hecho con cuidado y cariño,
               reflejando nuestra pasión por crear belleza en lo pequeño.
             </p>
             <Link to="/productos" className="btn btn-primary" style={{
@@ -87,7 +103,7 @@ const Home = () => {
             </Link>
           </div>
         </div>
-        
+
         {/* Elementos decorativos */}
         <div className="animate-float" style={{
           position: 'absolute',
@@ -119,9 +135,10 @@ const Home = () => {
       </section>
 
       {/* Productos Destacados */}
-      <section style={{
+      <section className="scroll-reveal" style={{
         padding: '4rem 0',
-        background: 'var(--beige)'
+        background: 'rgba(255, 255, 255, 0.5)', /* Fondo semi-transparente para ver partículas */
+        backdropFilter: 'blur(5px)'
       }}>
         <div className="container">
           <div style={{
@@ -142,27 +159,29 @@ const Home = () => {
               maxWidth: '600px',
               margin: '0 auto'
             }}>
-              Descubre nuestra selección de arreglos florales únicos, 
+              Descubre nuestra selección de arreglos florales únicos,
               cada uno creado con amor y dedicación.
             </p>
           </div>
 
-          <div className="grid grid-4">
-            {featuredProducts.map((product) => (
-              <div key={product.id} className="card" style={{
+          <div className="grid grid-4" style={{ gap: '2rem' }}>
+            {featuredProducts.map((product, index) => (
+              <div key={product.id} className="card card-hover" style={{
                 textAlign: 'center',
                 border: 'none',
-                background: 'white'
+                background: 'white',
+                animationDelay: `${index * 0.1}s` /* Stagger effect */
               }}>
                 <ProductImage
                   src={product.image}
                   alt={product.name}
                   style={{
                     width: '100%',
-                    height: '200px',
-                    borderRadius: '10px',
+                    height: '250px',
+                    borderRadius: '15px',
                     objectFit: 'cover',
-                    marginBottom: '1rem'
+                    marginBottom: '1rem',
+                    boxShadow: '0 5px 15px rgba(0,0,0,0.05)'
                   }}
                   fallback="🌸"
                 />
@@ -178,7 +197,8 @@ const Home = () => {
                   color: 'var(--texto-claro)',
                   fontSize: '0.9rem',
                   marginBottom: '1rem',
-                  lineHeight: '1.5'
+                  lineHeight: '1.5',
+                  minHeight: '3em'
                 }}>
                   {product.description}
                 </p>
@@ -189,36 +209,36 @@ const Home = () => {
                   marginBottom: '1rem',
                   flexWrap: 'wrap'
                 }}>
-                  {product.tags.map((tag, index) => (
-                    <span key={index} style={{
+                  {product.tags.map((tag, idx) => (
+                    <span key={idx} style={{
                       background: 'var(--amarillo-pastel)',
                       color: 'var(--texto-oscuro)',
-                      padding: '0.25rem 0.5rem',
-                      borderRadius: '12px',
+                      padding: '0.4rem 0.8rem',
+                      borderRadius: '20px',
                       fontSize: '0.8rem',
-                      fontWeight: '500'
+                      fontWeight: '600'
                     }}>
                       {tag}
                     </span>
                   ))}
                 </div>
                 <div style={{
-                  fontSize: '1.5rem',
+                  fontSize: '1.6rem',
                   fontWeight: '700',
                   color: 'var(--rosa-intenso)',
-                  marginBottom: '1rem'
+                  marginBottom: '1.2rem'
                 }}>
                   €{product.price}
                 </div>
-                <button 
+                <button
                   onClick={() => addToCart(product)}
                   className="btn btn-primary"
                   style={{
                     width: '100%',
-                    fontSize: '0.9rem'
+                    fontSize: '0.95rem'
                   }}
                 >
-                  Añadir al carrito
+                  <span style={{ marginRight: '5px' }}>🛒</span> Añadir cesto
                 </button>
               </div>
             ))}
@@ -226,27 +246,42 @@ const Home = () => {
 
           <div style={{
             textAlign: 'center',
-            marginTop: '3rem'
+            marginTop: '4rem'
           }}>
-            <Link to="/productos" className="btn btn-secondary" style={{
-              fontSize: '1.1rem',
-              padding: '15px 30px',
+            <Link to="/productos" className="btn btn-primary btn-glow" style={{
+              fontSize: '1.2rem',
+              padding: '16px 40px',
               display: 'inline-flex',
               alignItems: 'center',
-              gap: '0.5rem'
+              gap: '1rem',
+              boxShadow: 'var(--sombras-fuerte)'
             }}>
               Ver todos los productos
-              <ArrowRight size={20} />
+              <ArrowRight size={24} />
             </Link>
           </div>
         </div>
       </section>
 
       {/* Sección de valores */}
-      <section style={{
-        padding: '4rem 0',
-        background: 'linear-gradient(135deg, var(--lila-claro), var(--rosa-suave))'
+      <section className="scroll-reveal" style={{
+        padding: '6rem 0',
+        background: 'linear-gradient(135deg, var(--lila-claro), var(--rosa-suave))',
+        position: 'relative',
+        overflow: 'hidden'
       }}>
+        {/* Círculo decorativo */}
+        <div style={{
+          position: 'absolute',
+          top: -100,
+          right: -100,
+          width: 400,
+          height: 400,
+          background: 'rgba(255,255,255,0.2)',
+          borderRadius: '50%',
+          pointerEvents: 'none'
+        }} />
+
         <div className="container">
           <div style={{
             textAlign: 'center',
@@ -254,97 +289,60 @@ const Home = () => {
             margin: '0 auto'
           }}>
             <h2 style={{
-              fontSize: '2.5rem',
-              fontWeight: '600',
+              fontSize: '2.8rem',
+              fontWeight: '700',
               color: 'var(--texto-oscuro)',
-              marginBottom: '2rem'
+              marginBottom: '3rem'
             }}>
               ¿Por qué elegir Pipaflores?
             </h2>
             <div className="grid grid-3" style={{
-              marginTop: '3rem'
+              marginTop: '3rem',
+              gap: '2.5rem'
             }}>
-              <div style={{
-                textAlign: 'center',
-                padding: '1.5rem'
-              }}>
-                <div style={{
-                  fontSize: '3rem',
-                  marginBottom: '1rem'
+              {[
+                { icon: "🌸", title: "Hecho a mano", text: "Cada arreglo es único y creado con dedicación artesanal." },
+                { icon: "💝", title: "Con amor", text: "Cada detalle está pensado para transmitir cariño y cuidado." },
+                { icon: "✨", title: "Único", text: "No encontrarás dos arreglos iguales, cada uno es especial." }
+              ].map((item, index) => (
+                <div key={index} className="card card-hover" style={{
+                  textAlign: 'center',
+                  padding: '2.5rem',
+                  borderRadius: '20px',
+                  background: 'rgba(255,255,255,0.9)',
+                  backdropFilter: 'blur(10px)',
+                  transitionDelay: `${index * 0.2}s`
                 }}>
-                  🌸
+                  <div className="animate-bounce" style={{
+                    fontSize: '3.5rem',
+                    marginBottom: '1.5rem',
+                    display: 'inline-block'
+                  }}>
+                    {item.icon}
+                  </div>
+                  <h3 style={{
+                    fontSize: '1.5rem',
+                    fontWeight: '700',
+                    color: 'var(--texto-oscuro)',
+                    marginBottom: '0.8rem'
+                  }}>
+                    {item.title}
+                  </h3>
+                  <p style={{
+                    color: 'var(--texto-claro)',
+                    fontSize: '1rem',
+                    lineHeight: '1.6'
+                  }}>
+                    {item.text}
+                  </p>
                 </div>
-                <h3 style={{
-                  fontSize: '1.3rem',
-                  fontWeight: '600',
-                  color: 'var(--texto-oscuro)',
-                  marginBottom: '0.5rem'
-                }}>
-                  Hecho a mano
-                </h3>
-                <p style={{
-                  color: 'var(--texto-claro)',
-                  fontSize: '0.9rem'
-                }}>
-                  Cada arreglo es único y creado con dedicación artesanal.
-                </p>
-              </div>
-              <div style={{
-                textAlign: 'center',
-                padding: '1.5rem'
-              }}>
-                <div style={{
-                  fontSize: '3rem',
-                  marginBottom: '1rem'
-                }}>
-                  💝
-                </div>
-                <h3 style={{
-                  fontSize: '1.3rem',
-                  fontWeight: '600',
-                  color: 'var(--texto-oscuro)',
-                  marginBottom: '0.5rem'
-                }}>
-                  Con amor
-                </h3>
-                <p style={{
-                  color: 'var(--texto-claro)',
-                  fontSize: '0.9rem'
-                }}>
-                  Cada detalle está pensado para transmitir cariño y cuidado.
-                </p>
-              </div>
-              <div style={{
-                textAlign: 'center',
-                padding: '1.5rem'
-              }}>
-                <div style={{
-                  fontSize: '3rem',
-                  marginBottom: '1rem'
-                }}>
-                  ✨
-                </div>
-                <h3 style={{
-                  fontSize: '1.3rem',
-                  fontWeight: '600',
-                  color: 'var(--texto-oscuro)',
-                  marginBottom: '0.5rem'
-                }}>
-                  Único
-                </h3>
-                <p style={{
-                  color: 'var(--texto-claro)',
-                  fontSize: '0.9rem'
-                }}>
-                  No encontrarás dos arreglos iguales, cada uno es especial.
-                </p>
-              </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-    </div>
+    </div >
   )
 }
 
