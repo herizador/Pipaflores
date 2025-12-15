@@ -21,6 +21,15 @@
   /* Texto secundario */
   --transicion: all 0.3s ease;
   /* Transiciones suaves */
+
+  /* Variables recuperadas */
+  --rosa-claro: #F8D7E5;
+  /* Mismo que rosa-suave */
+  --rosa-muy-claro: #FFF0F5;
+  /* Un tono más claro para fondos */
+  --radio-borde: 15px;
+  --sombras-suave: 0 5px 15px rgba(0, 0, 0, 0.05);
+  --sombras-fuerte: 0 10px 25px rgba(0, 0, 0, 0.15);
 }
 
 * {
