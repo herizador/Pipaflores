@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Quicksand:wght@300;400;500;600;700&display=swap');
 @import './styles/animations.css';
 
 :root {
@@ -15,21 +16,26 @@
   /* Rosa intenso para CTAs */
   --amarillo-fuerte: #FFC107;
   /* Amarillo fuerte para CTAs secundarios */
-  --texto-oscuro: #333333;
-  /* Texto principal */
-  --texto-claro: #666666;
-  /* Texto secundario */
-  --transicion: all 0.3s ease;
-  /* Transiciones suaves */
+  --texto-oscuro: #4A4A4A;
+  /* Texto principal (suavizado) */
+  --texto-claro: #7A7A7A;
+  /* Texto secundario (suavizado) */
+  --transicion: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Transiciones más orgánicas */
 
-  /* Variables recuperadas */
+  /* Variables recuperadas y mejoradas */
   --rosa-claro: #F8D7E5;
-  /* Mismo que rosa-suave */
   --rosa-muy-claro: #FFF0F5;
-  /* Un tono más claro para fondos */
-  --radio-borde: 15px;
-  --sombras-suave: 0 5px 15px rgba(0, 0, 0, 0.05);
-  --sombras-fuerte: 0 10px 25px rgba(0, 0, 0, 0.15);
+  --radio-borde: 25px;
+  /* Bordes más redondeados */
+  --sombras-suave: 0 10px 30px rgba(0, 0, 0, 0.05);
+  /* Sombras más difusas y premium */
+  --sombras-fuerte: 0 15px 40px rgba(233, 30, 99, 0.15);
+  /* Sombras con color */
+
+  /* Fuentes */
+  --font-heading: 'Comfortaa', cursive;
+  --font-body: 'Quicksand', sans-serif;
 }
 
 * {
@@ -39,10 +45,12 @@
 }
 
 body {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-body);
   color: var(--texto-oscuro);
   background-color: var(--beige-claro);
-  line-height: 1.6;
+  line-height: 1.8;
+  /* Mayor legibilidad */
+  overflow-x: hidden;
 }
 
 h1,
@@ -51,28 +59,36 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-heading);
   color: var(--texto-oscuro);
+  font-weight: 700;
+  letter-spacing: -0.5px;
 }
 
 button {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   cursor: pointer;
   border: none;
   outline: none;
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 1280px;
+  /* Más ancho para pantallas modernas */
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 40px;
+  /* Más aire a los lados */
 }
 
 .btn {
-  padding: 12px 24px;
+  padding: 14px 32px;
+  /* Botones más grandes y cómodos */
   border-radius: 50px;
-  font-weight: 600;
+  font-weight: 700;
+  letter-spacing: 0.5px;
   transition: var(--transicion);
+  text-transform: uppercase;
+  font-size: 0.9rem;
 }
 
 .btn-primary {
