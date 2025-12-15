@@ -1,5 +1,28 @@
 @import './styles/animations.css';
 
+:root {
+  --rosa-suave: #F8D7E5;
+  /* Rosa suave para fondos */
+  --lila-claro: #D7C7F8;
+  /* Lila claro para acentos */
+  --beige: #FDF6E3;
+  /* Beige para fondo principal */
+  --beige-claro: #FDF6E3;
+  /* Alias para beige */
+  --amarillo-pastel: #FFF3B0;
+  /* Amarillo pastel para highlights */
+  --rosa-intenso: #E91E63;
+  /* Rosa intenso para CTAs */
+  --amarillo-fuerte: #FFC107;
+  /* Amarillo fuerte para CTAs secundarios */
+  --texto-oscuro: #333333;
+  /* Texto principal */
+  --texto-claro: #666666;
+  /* Texto secundario */
+  --transicion: all 0.3s ease;
+  /* Transiciones suaves */
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -13,7 +36,12 @@ body {
   line-height: 1.6;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: 'Playfair Display', serif;
   color: var(--texto-oscuro);
 }
@@ -96,13 +124,13 @@ button {
   .container {
     padding: 0 15px;
   }
-  
+
   .grid-2,
   .grid-3,
   .grid-4 {
     grid-template-columns: 1fr;
   }
-  
+
   .btn {
     padding: 10px 20px;
     font-size: 14px;
@@ -117,11 +145,14 @@ button {
 
 /* Animaciones para elementos decorativos */
 @keyframes float {
-  0%, 100% { 
-    transform: translateY(0px); 
+
+  0%,
+  100% {
+    transform: translateY(0px);
   }
-  50% { 
-    transform: translateY(-10px); 
+
+  50% {
+    transform: translateY(-10px);
   }
 }
 
