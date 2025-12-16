@@ -8,12 +8,14 @@ import Cart from './pages/Cart'
 import Admin from './pages/Admin'
 import { CartProvider } from './context/CartContext'
 import BackgroundEffects from './components/BackgroundEffects'
+import CreativeEffects from './components/CreativeEffects'
 
 function App() {
   return (
     <CartProvider>
       <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <BackgroundEffects />
+        <CreativeEffects />
         <div className="App">
           <Header />
           <main>

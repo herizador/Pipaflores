@@ -3,6 +3,7 @@ import { ArrowRight, Star } from 'lucide-react'
 import { useCart } from '../context/CartContext'
 import ProductImage from '../components/ProductImage'
 import { useEffect } from 'react'
+import { triggerSparkles } from '../utils/sparkles'
 
 const Home = () => {
   const { addToCart } = useCart()
@@ -63,10 +64,14 @@ const Home = () => {
       {/* Banner Principal */}
       <section style={{
         background: 'linear-gradient(135deg, var(--rosa-suave) 0%, var(--lila-claro) 50%, var(--amarillo-pastel) 100%)',
-        padding: '4rem 0',
+        padding: '0', /* padding 0 porque usaremos flex center */
         textAlign: 'center',
         position: 'relative',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        minHeight: '100vh', /* Full screen */
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
       }}>
         <div className="container">
           <div style={{
@@ -231,7 +236,10 @@ const Home = () => {
                   €{product.price}
                 </div>
                 <button
-                  onClick={() => addToCart(product)}
+                  onClick={(e) => {
+                    triggerSparkles(e.clientX, e.clientY);
+                    addToCart(product);
+                  }}
                   className="btn btn-primary"
                   style={{
                     width: '100%',
@@ -248,7 +256,7 @@ const Home = () => {
             textAlign: 'center',
             marginTop: '4rem'
           }}>
-            <Link to="/productos" className="btn btn-primary btn-glow" style={{
+            <Link to="/productos" className="btn btn-gold btn-glow" style={{ /* Usando btn-gold */
               fontSize: '1.2rem',
               padding: '16px 40px',
               display: 'inline-flex',
